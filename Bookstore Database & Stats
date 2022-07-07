@@ -1,0 +1,28 @@
+--Create a bookstore database
+
+CREATE TABLE my_book_store (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, quantity INTEGER, type TEXT);
+
+INSERT INTO my_book_store VALUES (1, "Fiction", "$10", 4, "e-book");
+INSERT INTO my_book_store VALUES (2, "Non-Fiction", "$15", 6, "paperback");
+INSERT INTO my_book_store VALUES (3, "Cookbooks", "$20", 8, "hardcover");
+INSERT INTO my_book_store VALUES (4, "History", "$30", 9, "hardcover");
+INSERT INTO my_book_store VALUES (5, "Science", "$20", 6, "paperback");
+INSERT INTO my_book_store VALUES (6, "Politics", "$1", 4, "paperback");
+INSERT INTO my_book_store VALUES (7, "Self-Help", "$15", 3, "e-book");
+INSERT INTO my_book_store VALUES (8, "Religion", "$20", 8, "hardcover");
+INSERT INTO my_book_store VALUES (9, "Business & Money", "$30", 12, "paperback");
+INSERT INTO my_book_store VALUES (10, "Health & Nutrition", "$10", 8, "e-book");
+INSERT INTO my_book_store VALUES (11, "Travel", "$20", 6, "hardcover");
+INSERT INTO my_book_store VALUES (12, "Children's", "$30", 4, "paperback");
+INSERT INTO my_book_store VALUES (13, "Romance", "$10", 2, "e-book");
+INSERT INTO my_book_store VALUES (14, "Arts & Photography", "$20", 7, "hardcover");
+INSERT INTO my_book_store VALUES (15, "Mystery & Thriller", "$5", 9, "paperback");
+
+--Display the database ordered by name.
+SELECT * FROM my_book_store ORDER by name;
+
+--What are just the paperback books in this store?
+SELECT * FROM my_book_store WHERE type = "paperback";
+
+--What are the different types of books in this store? 
+SELECT type, COUNT(*) FROM my_book_store GROUP BY type;
