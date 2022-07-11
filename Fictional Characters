@@ -1,0 +1,82 @@
+/* Create table about the fictional book characters and the book they are in */
+CREATE TABLE fictional_characters (id INTEGER PRIMARY KEY,
+    character TEXT,
+    title TEXT,
+    date TEXT);
+    
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Harry Potter", "Harry Potter and the Sorcerer's Stone", "1998");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Ron Weasley", "Harry Potter and the Sorcerer's Stone", "1998");
+INSERT INTO fictional_characters (character,     title, date)
+    VALUES ("Lucy", "The Lion, the Witch and the Wardrobe", "1950");
+INSERT INTO fictional_characters (character,     title, date)
+VALUES ("Katniss Everdeen", "The Hunger Games", "2008");
+INSERT INTO fictional_characters (character,     title, date)
+    VALUES ("Mikael Blomkvist", "The Girl With the Dragon Tattoo", "2005");
+INSERT INTO fictional_characters (character,     title, date)
+VALUES ("Edmond Dantès", "The Count of Monte     Cristo", "1844");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Isabella Swan", "Twilight", "1844");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Frodo Baggins", "The Fellowship of the Ring", "1844");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Romeo", "Romeo and Juliet", "1597");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Jim Hawkins", "Treasure Island", "1883");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Charles Darnay", "A Tale of Two Cities", "1859");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Percy Jackson", "The Lightning Thief", "2005");
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Dorothy", "The Wonderful Wizard of Oz", "1900");
+SELECT * FROM fictional_characters;
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Liesel Meminger", "The Book Thief", "2007");
+SELECT * FROM fictional_characters;
+INSERT INTO fictional_characters (character, title, date)
+    VALUES ("Violet Baudelaire", "The Bad Beginning", "1999");
+SELECT * FROM fictional_characters;
+
+/* Create a related table with the authors of those books  */
+CREATE TABLE authors (id INTEGER PRIMARY KEY,
+    name TEXT,
+    char_id TEXT);
+    
+INSERT INTO authors (name, char_id)
+    VALUES ("J.K. Rowling", 1);
+INSERT INTO authors (name, char_id)
+    VALUES ("J.K. Rowling", 2);
+INSERT INTO authors (name, char_id)
+    VALUES ("C.S. Lewis", 3);
+INSERT INTO authors (name, char_id)
+    VALUES ("Suzanne Collins", 4);
+INSERT INTO authors (name, char_id)
+    VALUES ("Stieg Larsson", 5);
+INSERT INTO authors (name, char_id)
+    VALUES ("Alexandre Dumas", 6);
+INSERT INTO authors (name, char_id)
+    VALUES ("Stephenie Meyer", 7);
+INSERT INTO authors (name, char_id)
+    VALUES ("J.R.R. Tolkien", 8);
+INSERT INTO authors (name, char_id)
+    VALUES ("William Shakespeare", 9);
+INSERT INTO authors (name, char_id)
+    VALUES ("Robert Louis Stevenson", 10);
+INSERT INTO authors (name, char_id)
+    VALUES ("Charles Dickens", 11);
+INSERT INTO authors (name, char_id)
+    VALUES ("Rick Riordan", 12);
+INSERT INTO authors (name, char_id)
+    VALUES ("L. Frank Baum", 13);
+INSERT INTO authors (name, char_id)
+    VALUES ("Markus Zusak", 14);
+INSERT INTO authors (name, char_id)
+    VALUES ("Lemony Snicket", 15);
+
+/* What author wrote each book? */
+SELECT authors.name, fictional_characters.title
+    FROM authors
+    LEFT OUTER JOIN fictional_characters
+    ON fictional_characters.id = authors.char_id; 
+ 
