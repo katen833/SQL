@@ -1,0 +1,37 @@
+-- App impersonator - Food Diary 
+
+CREATE TABLE nutrimeter (
+    id INTEGER PRIMARY KEY,
+    date TEXT, 
+    food TEXT, 
+    serving_size INTEGER, 
+    protein INTEGER);
+
+INSERT INTO nutrimeter VALUES (1, "6/1/22", "hamburger", .3, 26);
+INSERT INTO nutrimeter VALUES (2, "6/2/22", "chicken thigh", 1, 22.6);
+INSERT INTO nutrimeter VALUES (3, "6/3/22", "blackberries", 1, 2);
+INSERT INTO nutrimeter VALUES (4, "6/4/22", "ice cream", 1, 4);
+INSERT INTO nutrimeter VALUES (5, "6/5/22", "chicken soup", 1, 13);
+INSERT INTO nutrimeter VALUES (6, "6/6/22", "pear", 1, 0);
+INSERT INTO nutrimeter VALUES (7, "6/7/22", "breakfast sausage", 3, 4);
+INSERT INTO nutrimeter VALUES (8, "6/8/22", "italian sausage", 1, 13.8);
+INSERT INTO nutrimeter VALUES (9, "6/9/22", "stir fry veggies", 1, 9.2);
+INSERT INTO nutrimeter VALUES (10, "6/10/22", "tacos", 1, 50);
+INSERT INTO nutrimeter VALUES (11, "6/11/22", "pb&j sandwich", 1, 2);
+INSERT INTO nutrimeter VALUES (12, "6/12/22", "tuna salad", 1, 26);
+INSERT INTO nutrimeter VALUES (13, "6/13/22", "steak", 1, 18);
+INSERT INTO nutrimeter VALUES (14, "6/14/22", "pancakes", 3, 3);
+INSERT INTO nutrimeter VALUES (15, "6/15/22", "smores", 1, 2);
+
+-- Show all from table.
+SELECT * FROM nutrimeter;
+
+-- Change one item in the table.
+UPDATE nutrimeter SET food="sushi" WHERE id=14;
+
+SELECT * FROM nutrimeter;
+
+-- Delete one entry from the table.
+DELETE FROM nutrimeter WHERE id=11;
+
+SELECT * FROM nutrimeter;
