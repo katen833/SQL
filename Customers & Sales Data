@@ -1,4 +1,4 @@
-This database contained two tables:  one for customers, the other for monthly sales.  
+--In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
 
 SELECT * FROM BIT_DB.customers LIMIT 20;
 SELECT * FROM BIT_DB.JanSales LIMIT 20;
