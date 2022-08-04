@@ -1,0 +1,94 @@
+/*In the below SQL, I analyzed data from a music store.   This database contains 11 tables including sales, inventory and customers.*/
+
+--Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: != or <> can be used to say "is not equal to").
+SELECT CustomerID, (FirstName || ' ' || LastName) AS FullName, country FROM chinook.customers
+    WHERE country <> 'USA';
+    
+--Show only the Customers from Brazil.
+SELECT CustomerID, (FirstName || ' ' || LastName) AS FullName, country 
+    FROM chinook.customers
+    WHERE country = 'Brazil';
+    
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT (customers.FirstName || ' ' || customers.LastName) AS FullName, invoices.InvoiceId, invoices.InvoiceDate,  invoices.BillingCountry 
+    FROM customers
+    LEFT JOIN invoices 
+    ON customers.CustomerId = invoices.CustomerId 
+    WHERE country = 'Brazil';
+
+--Show the Employees who are Sales Agents.
+SELECT * FROM employees
+    WHERE Title = "Sales Support Agent";
+    
+--Find a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT BillingCountry 
+    FROM invoices
+    ORDER BY BillingCountry ASC;
+    
+--Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT employees.employeeID, (employees.FirstName || ' ' || employees.LastName)  AS SalesFullName, customers.SupportRepID, invoices.InvoiceID
+    FROM employees
+    INNER JOIN customers ON employees.employeeID=customers.SupportRepID
+    INNER JOIN invoices ON customers.CustomerID=invoices.CustomerID
+    ORDER BY invoices.InvoiceID ASC;
+
+--Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+SELECT invoices.InvoiceID, (employees.FirstName || ' ' || employees.LastName) AS SalesFullName, 
+    (customers.FirstName || ' ' || customers.LastName) AS CustomerName, customers.Country,   
+    invoices.Total
+    FROM employees
+    LEFT JOIN customers ON employees.employeeID=customers.SupportRepID
+    INNER JOIN invoices ON customers.CustomerID=invoices.CustomerID
+    ORDER BY invoices.InvoiceID ASC;
+    
+--How many Invoices were there in 2009?
+SELECT COUNT(InvoiceID) FROM invoices
+    WHERE InvoiceDate like "2009%";
+    
+--What are the total sales for 2009?
+SELECT SUM(Total) FROM invoices
+    WHERE InvoiceDate like "2009%";
+    
+--Write a query that includes the purchased track name with each invoice line item.
+SELECT invoice_items.InvoiceLineID, tracks.Name FROM invoice_items
+    LEFT JOIN tracks ON invoice_items.TrackID=tracks.TrackID
+    ORDER BY invoice_items.InvoiceId;
+    
+--Write a query that includes the purchased track name AND artist name with each invoice line item.
+SELECT invoice_items.InvoiceLineID, tracks.Name, artists.Name FROM invoice_items
+    LEFT JOIN tracks ON invoice_items.TrackID=tracks.TrackId
+    LEFT JOIN albums ON albums.AlbumId=tracks.AlbumId
+    LEFT JOIN artists ON artists.ArtistId=albums.AlbumId
+    ORDER BY invoice_items.InvoiceId;
+    
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT tracks.TrackId, tracks.Name, albums.Title, media_types.Name AS Media_Type, genres.Name AS Genre_Name
+    FROM tracks
+    LEFT JOIN albums ON albums.AlbumId=tracks.AlbumId
+    LEFT JOIN media_types ON media_types.MediaTypeId=tracks.MediaTypeId
+    LEFT JOIN genres ON genres.GenreId=tracks.GenreId;
+    
+--Show the total sales made by each sales agent.
+SELECT (employees.FirstName || ' ' || employees.LastName) AS SalesFullName, SUM(invoices.Total)
+    FROM employees
+    LEFT JOIN customers ON employees.employeeID=customers.SupportRepID
+    LEFT JOIN invoices ON customers.CustomerID=invoices.CustomerID
+    GROUP BY employees.EmployeeId;
+    
+--Which sales agent made the most in sales in 2009?
+SELECT (employees.FirstName || ' ' || employees.LastName) AS SalesFullName, SUM(invoices.Total)
+    FROM employees
+    LEFT JOIN customers ON employees.employeeID=customers.SupportRepID
+    LEFT JOIN invoices ON customers.CustomerID=invoices.CustomerID
+    GROUP BY employees.EmployeeId 
+    ORDER BY invoices.Total DESC
+    LIMIT 1;
+    
+--What are the top 10 most sold tracks? 
+SELECT tracks.Name, SUM(invoices.Total)
+    FROM invoices
+    LEFT JOIN invoice_items ON invoice_items.InvoiceId=invoices.InvoiceId
+    LEFT JOIN tracks ON tracks.TrackId=invoice_items.TrackId
+    GROUP BY tracks.Name
+    ORDER BY SUM(invoices.Total) DESC
+    LIMIT 10;
